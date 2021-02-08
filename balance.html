@@ -1,0 +1,214 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Расчет масла на участке</title>
+	<link rel="stylesheet" href="libs/bootstrap/css/bootstrap.min.css">	
+	<style type="text/css">
+		.main-container {
+			position: relative;
+		}
+	   	.block_header {
+	   		text-align: center;
+	   		text-transform: uppercase;
+	   		font-weight: bold;
+	   	}
+	   	.btn-count {
+	   		width: 100px;
+	   		margin-bottom: 2rem;
+	   	}
+	   	.text-result {
+			font-weight: bold;
+			text-transform: uppercase;
+	   	}
+		.text-allert {
+			color: red;
+			font-weight: bold;
+		}
+	   	.limits {
+	   		font-weight: normal;
+	   		color: green;
+	   	}
+		.group-inputs {
+			border:1px solid grey;
+			border-radius: 4px;
+			padding-bottom: 15px;
+		}
+		
+		.dialog-window {
+			position: absolute;
+			top: 100px;			
+			left:50%;
+			margin-left: -400px;
+			width: 800px;
+			height: 300px;
+			border: 1px solid red;
+			background-color: #fff;
+		}
+		
+		.dialog-window__box {
+			width: 100%;
+			height: 100%;
+			position: relative;
+		}
+		
+		.dialog-window__text-box {			
+			text-align: center;			
+			weight: bolder;
+		}
+		
+		.text-box_first {
+			font-size: 1.5rem;
+			padding: 3rem 2rem 3rem 2rem;
+		}
+		
+		.text-box_two {
+			font-size: 3rem;
+			padding: 2rem 0 2rem 0;
+		}
+		
+		.dialog-window__button {
+			position: absolute;
+		}
+		
+		.btnYes {
+			position: absolute;
+			right: 10rem;
+			bottom: 3rem;
+			font-size: 5rem;
+		}
+		
+		.btnNo {			
+			position: absolute;
+			left: 10rem;
+			bottom: 3rem;
+			transition: all 0.07 linear 0s;
+		}
+	</style>
+</head>
+<body>
+	<div class="container main-container" id="mainContainer">		
+		<form id="mainForm" class="row">
+			<div class="row">
+				<div class="col-md-3">
+					<div class="row">
+						<h3 class="block_header">Нейтрализация</h3>
+						<div class="form-group col-md-12">
+						    <label for="tank_E1n">Е1н (%)</label>
+						    <input type="number" class="form-control" id="tank_E1n" name="tank_E1n" min="0" max="100">
+						</div>
+						<div class="form-group col-md-12">
+						    <label for="tank_E8n">Е8н (%)</label>
+						    <input type="number" class="form-control" id="tank_E8n" name="tank_E8n" value="100" min="0" max="100" step="100">
+						</div>
+						<div class="form-group col-md-12">
+						    <label for="tank_E15n">Е15н (%)</label>
+						    <input type="number" class="form-control" id="tank_E15n" name="tank_E15n" value="100" min="0" max="100" step="100">
+						</div>
+						<div class="form-group col-md-12">
+						    <label for="tank_E13n">Е13a (%)</label>
+						    <input type="number" class="form-control" id="tank_E13n" name="tank_E13n" value="100" min="0" max="100" step="100">
+						</div>
+						<div class="form-group col-md-12">
+						    <label for="tank_E41n">Е41н (%)</label>
+						    <input type="number" class="form-control" id="tank_E41n" name="tank_E41n" value="50" min="0" max="100">
+						</div>
+					</div>
+				</div>			
+				<div class="col-md-3">
+					<div class="row">
+						<h3 class="block_header">Отбелка</h3>
+						<div class="form-group col-md-12">
+						    <label for="tank_E1o">Е1o (%)</label>
+						    <input type="number" class="form-control" id="tank_E1o" name="tank_E1o" min="0" max="100">
+						</div>
+						<div class="form-group col-md-12">
+						    <label for="tank_E8n">Е3o (%)</label>
+						    <input type="number" class="form-control" id="tank_E3o" name="tank_E3o" min="0" max="100">
+						</div>
+						<div class="form-group col-md-12">
+						    <label for="tank_F5_1o">Ф5.1o (%)</label>
+						    <input type="number" class="form-control" id="tank_F5_1o" name="tank_F5_1o" min="0" max="100" step="100">
+						</div>
+						<div class="form-group col-md-12">
+						    <label for="tank_F5_2o">Ф5.2o (%)</label>
+						    <input type="number" class="form-control" id="tank_F5_2o" name="tank_F5_2o" min="0" max="100" step="100">
+						</div>
+						<div class="form-group col-md-12">
+						    <label for="tank_E19o">Е19o (%)</label>
+						    <input type="number" class="form-control" id="tank_E19o" name="tank_E19o" value="100" min="0" max="100">
+						</div>				
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="row">
+						<h3 class="block_header">Вымораживание</h3>
+						<div class="form-group col-md-12 group-inputs">
+						    <label for="tank_E3v">Е3в (%)</label>
+						    <input type="number" class="form-control" id="tank_E3v" name="tank_E3v" min="0" max="100">
+							<label for="limit_E3v" class="limits">Необходимый остаток  в Е3в. (%)</label>
+						    <input type="number" class="form-control" id="limit_E3v" name="limit_E3v" min="0" max="100" value="60">
+						</div>
+						<div class="form-group col-md-12 group-inputs">
+						    <label for="tank_E7v">Е7в (%)</label>
+							<input type="number" class="form-control" id="tank_E7v" name="tank_E7v" min="0" max="100">
+							<label for="limit_E7v" class="limits">Необходимый остаток в Е7в. (%)</label>
+						    <input type="number" class="form-control" id="limit_E7v" name="limit_E7v" min="0" max="100" value="80">
+						</div>
+						<div class="form-group col-md-12">
+						    <label for="tank_F11_1v">Ф11.1в (%)</label>
+						    <input type="number" class="form-control" id="tank_F11_1v" name="tank_F11_1v" min="0" max="100" step="100">
+						</div>
+						<div class="form-group col-md-12">
+						    <label for="tank_F11_2v">Ф11.2в (%)</label>
+						    <input type="number" class="form-control" id="tank_F11_2v" name="tank_F11_2v" min="0" max="100" step="100">
+						</div>	
+						<div class="form-group col-md-12 group-inputs">
+						    <label for="tank_E19v">Е19в (%)</label>
+						    <input type="number" class="form-control" id="tank_E19v" name="tank_E19v" min="0" max="100">
+						    <label for="limit_E19v" class="limits">Необходимый остаток в Е19в. (%)</label>
+						    <input type="number" class="form-control" id="limit_E19v" name="limit_E19v" min="0" max="100" value="80">
+						</div>								
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="row">
+						<h3 class="block_header">Дезодорация</h3>
+						<div class="form-group col-md-12">
+						    <label for="tank_E4d">Е4д (%)</label>
+						    <input type="number" class="form-control" id="tank_E4d" name="tank_E4d" value="60" min="0" max="100">
+						</div>
+						<div class="form-group col-md-12">
+						    <label for="tank_E6d">Е6д + 1,2,3 ступени Е7д (%)</label>
+						    <input type="number" class="form-control" id="tank_E6d" name="tank_E6d" value="100" min="0" max="100" step="100">
+						</div>
+						<div class="form-group col-md-12">
+						    <label for="tank_E7d">Е7д 4 ступень (%)</label>
+						    <input type="number" class="form-control" id="tank_E7d" name="tank_E7d" value="90" min="0" max="100">
+						</div>
+						<div class="form-group col-md-12 group-inputs">
+						    <label for="tank_E31d">Е31д (%)</label>
+						    <input type="number" class="form-control" id="tank_E31d" name="tank_E31d" min="0" max="100">
+						    <label for="limit_E31d" class="limits">Необходимый остаток в Е31д. (%)</label>
+						    <input type="number" class="form-control" id="limit_E31d" name="limit_E31d" min="0" max="100" value="60">
+						</div>				
+					</div>	
+				</div>
+			</div>	
+			<div class="row text-center" >
+				<button type="button" class="btn btn-primary btn-count" id="countForm">Расчет</button>
+			</div>   
+			<div class="text-center" id="results-count">
+				
+			</div>		 	
+		</form>
+	
+	</div>	
+	
+	<script src="libs/jquery/jquery.min.js"></script>
+	<script src="libs/bootstrap/js/bootstrap.min.js"></script>
+	<script src="libs/vue/vue.min.js"></script>
+	<script src="js/main_balance.js"></script>
+	<script src="js/exp.js"></script>
+</body>
+</html>
