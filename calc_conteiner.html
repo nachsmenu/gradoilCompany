@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Расчет контейнера</title>	
+	<link rel="stylesheet" href="libs/bootstrap/css/bootstrap.min.css">	
+	<style type="text/css">
+		html, body {
+			width: 100%;
+		}
+		.main-container {
+			position: relative;
+		}
+	   	.block_header {
+	   		text-align: center;
+	   		text-transform: uppercase;
+	   		font-weight: bold;
+	   	}
+		.block-btn {
+			padding: 2rem;
+		}
+	   	.btn-count {
+	   		width: 100px;	   	
+	   	}
+	   	.text-result {
+			font-weight: bold;
+			text-transform: uppercase;
+	   	}
+		.text-allert {
+			color: red;
+			font-weight: bold;
+		}
+	   	.limits {
+	   		font-weight: normal;
+	   		color: green;
+	   	}
+		.caunt-group {
+			border:1px solid grey;
+			border-radius: 4px;
+			padding: 15px;
+		}
+		
+		.dialog-window {
+			position: absolute;
+			top: 100px;			
+			left:50%;
+			margin-left: -400px;
+			width: 800px;
+			height: 300px;
+			border: 1px solid red;
+			background-color: #fff;
+		}
+		
+		.dialog-window__box {
+			width: 100%;
+			height: 100%;
+			position: relative;
+		}
+		
+		.dialog-window__text-box {			
+			text-align: center;			
+			weight: bolder;
+		}
+		
+		.text-box_first {
+			font-size: 1.5rem;
+			padding: 3rem 2rem 3rem 2rem;
+		}
+		
+		.text-box_two {
+			font-size: 3rem;
+			padding: 2rem 0 2rem 0;
+		}
+		
+		.dialog-window__button {
+			position: absolute;
+		}
+		
+		.btnYes {
+			position: absolute;
+			right: 10rem;
+			bottom: 3rem;
+			font-size: 5rem;
+		}
+		
+		.btnNo {			
+			position: absolute;
+			left: 10rem;
+			bottom: 3rem;
+			transition: all 0.07 linear 0s;
+		}
+
+		.btn-show-itemCount {
+			width: 100%;
+		}
+
+		.item-count-title {			
+   			padding: 6px 12px;
+   			margin: 0;
+   			font-size: 14px;
+   			font-weight: 400;
+   			line-height: 1.42857143;
+   			text-align: center;
+   			white-space: nowrap;
+   			vertical-align: middle;
+			color: #fff;
+    		background-color: #5cb85c;
+    		border-color: #4cae4c;
+			border: 1px solid transparent;
+			border-radius: 4px;
+			text-align: center;
+		}
+
+		.cellBox {
+			width: 3rem;
+			border: 1px solid black;
+		}
+
+		.cellFullBox {		
+			background-color: green;
+		}
+
+		.cellEmptyBox {		
+				
+		}
+
+		.cellAddBox {
+			background-color: red;
+		}
+
+		.block-results {
+			padding: 2rem 5rem;
+		}
+
+		.contView {
+			margin: 0 auto;
+			margin-bottom: 2rem;
+		}
+	</style>
+</head>
+<body>
+	<div class="container main-container" id="mainContainer">	
+		<form id="mainForm">
+			<div class="row block-form">
+				<h3 class="block_header">Расчет контейнера</h3>
+				<div class="col-md-3 col-sm-12 caunt-group" id="contCount">
+					<div class="form-group col-md-12 col-sm-12 ">
+						<h4>Размер контейнера</h4>
+						<label for="containerWidth">Ширина контейнера, см</label>
+						<input type="number" class="form-control" id="contWidth" name="containerWidth"  min="0" value="244" required >
+						<label for="containerLength">Длина контейнера, см</label>
+						<input type="number" class="form-control" id="contLegth" name="containerLength"  min="0" value="1200" required >
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-12 caunt-group">
+					<h4 class="item-count-title">Позиция</h4>					
+					<div class="item-count__content row">						
+						<div class="form-group col-md-12 col-sm-12">							
+							<label for="countBottle">Количество бутылок (шт)</label>
+							<input type="number" class="form-control" id="countBottle" name="countBottle"  min="0" required >						    
+						</div>				
+						<div class="form-group col-md-12 col-sm-12">
+							<label for="countBoxesInRow">Количество ящиков в ряду</label>
+							<input type="number" class="form-control" id="countBoxesInRow" name="countBoxesInRow"  min="0" required >
+						</div>
+						<div class="form-group col-md-12 col-sm-12">
+							<label for="countBottleInBox">Выбирите тип гофроящика ящика</label>
+							<select class="form-control" id="typeBox" name="typeBox" required>								
+								<option value="1" data-count-bottles-in-box="15" data-length="380" data-width="230"  data-height="266">(0,85л/15) 380*230*266 </option>
+								<option value="2" data-count-bottles-in-box="12" data-length="310" data-width="230"  data-height="266">(0,85л/12) 305*230*266 </option>
+								<option value="3" data-count-bottles-in-box="15" data-length="390" data-width="236"  data-height="280">(1л/15) 390х236х280 </option>
+								<option value="4" data-count-bottles-in-box="12" data-length="312" data-width="236"  data-height="280">(1л/12) 312х236х280 </option>
+								<option value="5" data-count-bottles-in-box="6" data-length="373" data-width="248"  data-height="345">(3л/6) 373*248*345 </option>
+								<option value="6" data-count-bottles-in-box="4" data-length="320" data-width="320"  data-height="330">(5л/4) 320*320*330 </option>
+								<option value="7" data-count-bottles-in-box="3" data-length="480" data-width="160"  data-height="330">(5л/3) 480*160*330 </option>
+								<option value="7" data-count-bottles-in-box="2" data-length="320" data-width="160"  data-height="330">(5л/2) 320*160*330 </option>
+								<option value="7" data-count-bottles-in-box="4" data-length="310" data-width="320"  data-height="332">(5л/4) Квадрат 310*320*332 </option>	
+								<option value="7" data-count-bottles-in-box="3" data-length="465" data-width="155"  data-height="330">(5л/3) Квадрат 465*155*330 </option>	
+								<option value="7" data-count-bottles-in-box="3" data-length="465" data-width="155"  data-height="330">(5л/3) Квадрат 465*155*330 </option>	
+								<option value="7" data-count-bottles-in-box="3" data-length="465" data-width="155"  data-height="330">(5л/3) Квадрат 465*155*330 </option>										
+							</select> 	   
+						</div>															
+					</div>								
+				</div>
+				<div class="col-md-3 col-sm-12 caunt-group">
+					<button type="button" class="btn btn-success btn-show-itemCount">Добавить позицию</button>					
+					<div class="row item-count__content hide">											
+						<div class="form-group col-md-12 col-sm-12">							
+							<label for="countBottle_1">Количество бутылок (шт)</label>
+							<input type="number" class="form-control" id="countBottle_1" name="countBottle"  min="0" required >						    
+						</div>				
+						<div class="form-group col-md-12 col-sm-12">
+							<label for="countBoxesInRow_1">Количество ящиков в ряду</label>
+							<input type="number" class="form-control" id="countBoxesInRow_1" name="countBoxesInRow"  min="0" required >
+						</div>
+						<div class="form-group col-md-12 col-sm-12">
+							<label for="typeBox_1">Выбирите тип гофроящика ящика</label>
+							<select class="form-control" id="typeBox_1" name="typeBox" required>								
+								<option value="1" data-count-bottles-in-box="15" data-length="380" data-width="230"  data-height="266">(0,85л/15) 380*230*266 </option>
+								<option value="2" data-count-bottles-in-box="12" data-length="310" data-width="230"  data-height="266">(0,85л/12) 305*230*266 </option>
+								<option value="3" data-count-bottles-in-box="15" data-length="390" data-width="236"  data-height="280">(1л/15) 390х236х280 </option>
+								<option value="4" data-count-bottles-in-box="12" data-length="312" data-width="236"  data-height="280">(1л/12) 312х236х280 </option>
+								<option value="5" data-count-bottles-in-box="6" data-length="373" data-width="248"  data-height="345">(3л/6) 373*248*345 </option>
+								<option value="6" data-count-bottles-in-box="4" data-length="320" data-width="320"  data-height="330">(5л/4) 320*320*330 </option>
+								<option value="7" data-count-bottles-in-box="3" data-length="480" data-width="160"  data-height="330">(5л/3) 480*160*330 </option>
+								<option value="7" data-count-bottles-in-box="2" data-length="320" data-width="160"  data-height="330">(5л/2) 320*160*330 </option>
+								<option value="7" data-count-bottles-in-box="4" data-length="310" data-width="320"  data-height="332">(5л/4) Квадрат 310*320*332 </option>	
+								<option value="7" data-count-bottles-in-box="3" data-length="465" data-width="155"  data-height="330">(5л/3) Квадрат 465*155*330 </option>	
+								<option value="7" data-count-bottles-in-box="3" data-length="465" data-width="155"  data-height="330">(5л/3) Квадрат 465*155*330 </option>	
+								<option value="7" data-count-bottles-in-box="3" data-length="465" data-width="155"  data-height="330">(5л/3) Квадрат 465*155*330 </option>										
+							</select> 	   
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-12 caunt-group">
+					<button type="button" class="btn btn-success btn-show-itemCount">Добавить позицию</button>					
+					<div class="row item-count__content hide">
+						<div class="form-group col-md-12 col-sm-12">							
+							<label for="countBottle_2">Количество бутылок (шт)</label>
+							<input type="number" class="form-control" id="countBottle_2" name="countBottle"  min="0" required >						    
+						</div>				
+						<div class="form-group col-md-12 col-sm-12">
+							<label for="countBoxesInRow_2">Количество ящиков в ряду</label>
+							<input type="number" class="form-control" id="countBoxesInRow_2" name="countBoxesInRow"  min="0" required >
+						</div>
+						<div class="form-group col-md-12 col-sm-12">
+							<label for="typeBox_2">Выбирите тип гофроящика ящика</label>
+							<select class="form-control" id="typeBox_2" name="typeBox" required>								
+								<option value="1" data-count-bottles-in-box="15" data-length="380" data-width="230"  data-height="266">(0,85л/15) 380*230*266 </option>
+								<option value="2" data-count-bottles-in-box="12" data-length="310" data-width="230"  data-height="266">(0,85л/12) 305*230*266 </option>
+								<option value="3" data-count-bottles-in-box="15" data-length="390" data-width="236"  data-height="280">(1л/15) 390х236х280 </option>
+								<option value="4" data-count-bottles-in-box="12" data-length="312" data-width="236"  data-height="280">(1л/12) 312х236х280 </option>
+								<option value="5" data-count-bottles-in-box="6" data-length="373" data-width="248"  data-height="345">(3л/6) 373*248*345 </option>
+								<option value="6" data-count-bottles-in-box="4" data-length="320" data-width="320"  data-height="330">(5л/4) 320*320*330 </option>
+								<option value="7" data-count-bottles-in-box="3" data-length="480" data-width="160"  data-height="330">(5л/3) 480*160*330 </option>
+								<option value="7" data-count-bottles-in-box="2" data-length="320" data-width="160"  data-height="330">(5л/2) 320*160*330 </option>
+								<option value="7" data-count-bottles-in-box="4" data-length="310" data-width="320"  data-height="332">(5л/4) Квадрат 310*320*332 </option>	
+								<option value="7" data-count-bottles-in-box="3" data-length="465" data-width="155"  data-height="330">(5л/3) Квадрат 465*155*330 </option>	
+								<option value="7" data-count-bottles-in-box="3" data-length="465" data-width="155"  data-height="330">(5л/3) Квадрат 465*155*330 </option>	
+								<option value="7" data-count-bottles-in-box="3" data-length="465" data-width="155"  data-height="330">(5л/3) Квадрат 465*155*330 </option>										
+							</select> 	   
+						</div>
+					</div>
+				</div>		
+				</div>												
+			</div>	
+			<div class="row text-center block-btn" >
+					<button type="button" class="btn btn-primary btn-count" id="countForm">Расчет</button>
+			</div> 
+		</form>	  
+		<div class="text-center block-results" id="results-count">
+				
+		</div>	
+	</div>	
+	
+	<script src="libs/jquery/jquery.min.js"></script>
+	<script src="libs/bootstrap/js/bootstrap.min.js"></script>
+	<script src="libs/vue/vue.min.js"></script>
+	<script src="js/main_container.js"></script>	
+</body>
+</html>
